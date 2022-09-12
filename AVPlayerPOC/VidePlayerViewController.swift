@@ -18,7 +18,7 @@ class VidePlayerViewController: UIViewController, WKUIDelegate, WKNavigationDele
     var isYoutube: Bool = false
     
     override func loadView() {
-        setupWKVebView()
+        setupWKWebView()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class VidePlayerViewController: UIViewController, WKUIDelegate, WKNavigationDele
     
     
     
-    func loadVideoFromAVPlayer(for link: String){
+    private func loadVideoFromAVPlayer(for link: String){
         let videoURL = URL(string: link)
         let player = AVPlayer(url: videoURL!)
         let playerLayer = AVPlayerLayer(player: player)
@@ -44,19 +44,9 @@ class VidePlayerViewController: UIViewController, WKUIDelegate, WKNavigationDele
         player.play()
     }
     
-    func setupWKVebView(){
+    private func setupWKWebView(){
         let webConfiguration = WKWebViewConfiguration()
         let contentController = WKUserContentController()
-        // Inject JavaScript which sending message to App
-        //              let js: String = "window.webkit.messageHandlers.callbackHandler.postMessage('Hello from JavaScript');"
-        //              let userScript = WKUserScript(source: js, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
-        //              contentController.removeAllUserScripts()
-        //              contentController.addUserScript(userScript)
-        //              // Add ScriptMessageHandler
-        //              contentController.add(
-        //                  self,
-        //                  name: "callbackHandler"
-        //              )
         webConfiguration.userContentController = contentController
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
